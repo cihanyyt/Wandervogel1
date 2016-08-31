@@ -1,5 +1,6 @@
 package abitsoftware.wandervogel;
 
+import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.support.v4.app.FragmentActivity;
@@ -48,19 +49,35 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        LatLng mapCenter = new LatLng(41.0082, 28.9784);
 
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(41.0082, 28.9784);
-        //mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.monster_selected)).position(sydney).title("Marker in Istanbul"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        Intent intent = new Intent(this, GPSTrackerActivity.class);
+        startActivityForResult(intent,1);
+
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
         Button b = (Button) findViewById(R.id.buttonMap);
-
         Geocoder geoCoder = new Geocoder(this);
-
         List<Address> list = null;
+
+        Double longitude = 41.0082;
+        Double latitude = 28.9784;
+
+        if(requestCode == 1){
+            Bundle extras = data.getExtras();
+            latitude = extras.getDouble("Longitude");
+            longitude = extras.getDouble("Latitude");
+        }
+
+        LatLng mapCenter = new LatLng(longitude, latitude);
+
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(mapCenter));
+
+
         try {
-            list = geoCoder.getFromLocation(41.0082, 28.9784, 1);
+            list = geoCoder.getFromLocation(longitude, latitude, 1);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -68,28 +85,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             b.setText(list.get(0).getAdminArea().toString());
         }
 
-        // Some buildings have indoor maps. Center the camera over
-        // the building, and a floor picker will automatically appear.
-//        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
-//                new LatLng(-33.86997, 151.2089), 18));
-
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
         CameraPosition cameraPosition = CameraPosition.builder()
                 .target(mapCenter)
                 .zoom(13)
                 .bearing(90)
                 .build();
-
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
 
         // Animate the change in camera view over 2 seconds
         mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition),
@@ -102,5 +102,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .add(new LatLng(40.0082, 20.9784))  // Hawaii
                 .add(new LatLng(40.0082, 28.9784))  // Mountain View
         );
+
+
     }
 }
