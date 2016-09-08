@@ -227,6 +227,11 @@ public class Splash extends AppCompatActivity implements GoogleApiClient.OnConne
     // [END auth_with_google]
 
     private void signIn() {
+
+        if (mGoogleApiClient.isConnected()) {
+            Auth.GoogleSignInApi.signOut(mGoogleApiClient);
+        }
+
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }

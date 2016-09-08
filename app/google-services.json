@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "645074106151-00j4tbsc69hs554a118s1h295d8rmuir.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "abitsoftware.wandervogel",
+            "certificate_hash": "35860F5EC6039407F697167A0D93BACEF2588C33"
+          }
+        },
+        {
           "client_id": "645074106151-5rvapatggvborpfglegasbj2mef5tj2q.apps.googleusercontent.com",
           "client_type": 3
         }
