@@ -112,8 +112,8 @@ public class GPSTrackerActivity extends AppCompatActivity implements
 
             } else {
                 Intent intent = new Intent();
-                intent.putExtra("Longitude", 42.234);
-                intent.putExtra("Latitude", 38.123);
+                intent.putExtra("Longitude", 41.041849);
+                intent.putExtra("Latitude", 29.037991);
                 setResult(1,intent);
                 finish();
             }

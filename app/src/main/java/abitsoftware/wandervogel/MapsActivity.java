@@ -58,13 +58,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Geocoder geoCoder = new Geocoder(this);
         List<Address> list = null;
 
-        Double longitude = 41.0082;
-        Double latitude = 28.9784;
+        Double longitude = 41.041849;
+        Double latitude = 29.037991;
 
         if(requestCode == 1){
             Bundle extras = data.getExtras();
-            latitude = extras.getDouble("Longitude");
-            longitude = extras.getDouble("Latitude");
+            longitude = extras.getDouble("Longitude");
+            latitude = extras.getDouble("Latitude");
         }
 
         LatLng mapCenter = new LatLng(longitude, latitude);
@@ -94,9 +94,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // Polylines are useful for marking paths and routes on the map.
         mMap.addPolyline(new PolylineOptions().geodesic(true)
                 .add(new LatLng(41.0082, 28.9784))  // Sydney
-                .add(new LatLng(41.0082, 20.9784))  // Fiji
-                .add(new LatLng(40.0082, 20.9784))  // Hawaii
-                .add(new LatLng(40.0082, 28.9784))  // Mountain View
+                .add(new LatLng(41.0082, 29.1784))  // Fiji
+                .add(new LatLng(41.0182, 29.1784))  // Hawaii
+                .add(new LatLng(41.0182, 28.9784))  // Mountain View
         );
 
 
